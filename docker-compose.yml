@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro  # Permite a Portainer administrar Docker
+      - portainer_data:/data                           # Persistencia de datos de Portainer
+    ports:
+      - "8000:8000"
+      - "9443:9443"                                    # Interfaz web de Portainer por HTTPS (Accede por https://TU_IP:9443)
+
+  npm:
+    image: jc21/nginx-proxy-manager:latest
+    container_name: nginx_proxy_manager
+    restart: always
+    ports:
+      - "80:80"     # Puerto HTTP público
+      - "443:443"   # Puerto HTTPS público
+      - "81:81"     # Panel de administración de Nginx Proxy Manager (Accede por http://TU_IP:81)
+    volumes:
+      - npm_data:/data
+      - npm_letsencrypt:/etc/letsencrypt
+    # Si quieres que todo comparta la misma red creada por compose, puedes agregar una red personalizada.
+    # network_mode: bridge # Opcional si tienes problemas de red
+
+volumes:
+  portainer_data:
+  npm_data:
+  npm_letsencrypt:
