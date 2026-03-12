@@ -14,7 +14,7 @@ Antes de comenzar, asegúrate de tener instalado en tu servidor (VPS):
 1. Clona este repositorio en tu servidor:
 
    ```bash
-   git clone https://github.com/tusistemaia-star/Portainer-Nginx-Proxy-Manager.git
+   git clone https://github.com/tusistemaia-star/Portainer-NPM.git
    ```
 
 2. Accede al directorio del proyecto clonado:
